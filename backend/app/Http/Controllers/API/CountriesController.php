@@ -24,7 +24,7 @@ class CountriesController extends BaseController
             $cache = new RedisCache();
             $data = $cache->get(Config::get('countries.redis_key'));
             if (empty($data)) {
-                $data = $restCountries->getCountries();
+                $data = $restCountries->getData();
                 $cache->set(Config::get('countries.redis_key'), $data,
                     Config::get('countries.redis_cache_expire'));
             }
