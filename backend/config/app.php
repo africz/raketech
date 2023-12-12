@@ -30,8 +30,6 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
-    'restCountries' => ['all' => env('API_REST_COUNTRIES_ALL'), 'items_per_page' => env('API_ITEMS_PER_PAGE'), 25],
-
 
     /*
     |--------------------------------------------------------------------------

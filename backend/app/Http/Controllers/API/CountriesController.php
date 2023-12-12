@@ -11,22 +11,30 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Config;
+use App\Cache\RedisCache;
 
 
 class CountriesController extends BaseController
 {
     use ResponseTrait;
 
-    public function list(RestCountries $restCountries,int $fromPage): JsonResponse
+    public function list(RestCountries $restCountries, int $fromPage): JsonResponse
     {
         try {
-            $data = $restCountries->getCountries();
-            $retVal = $this->paginate($data, Config::get('app.restCountries.items_per_page'),$fromPage);
+            $cache = new RedisCache();
+            $data = $cache->get(Config::get('countries.redis_key'));
+            if (empty($data)) {
+                $data = $restCountries->getCountries();
+                $cache->set(Config::get('countries.redis_key'), $data,
+                    Config::get('countries.redis_cache_expire'));
+            }
+            $retVal = $this->paginate($data, Config::get('countries.items_per_page'), $fromPage);
             return $this->successResponse($retVal);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
     }
+
 
     public function paginate($items, $perPage, $page = null, $options = [])
     {
