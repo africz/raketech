@@ -1,21 +1,17 @@
 <template>
   <b-container>
-    <b-row  v-for="(logo, index) in this.flags" :key="index" class="table-active">
+    <!-- <b-row v-for="(logo, index) in this.flags" :key="index" class="table-active">
       <b-col lg="2"></b-col>
       <b-col lg="4">
-        <b-img :count="increment()" 
-          v-bind:src="flags[this.count].flag"
-        />
+        <b-img :count="increment()" v-bind:src="flags[this.count].flag" />
         <p>{{ flags[this.count].name }}</p>
       </b-col>
       <b-col lg="4">
-        <b-img :count="increment()"
-          v-bind:src="flags[this.count].flag"
-        />
-        <p>{{ flags[this.count].name}}</p>
+        <b-img :count="increment()" v-bind:src="flags[this.count].flag" />
+        <p>{{ flags[this.count].name }}</p>
       </b-col>
       <b-col lg="2"></b-col>
-      </b-row>
+    </b-row> -->
 
     <div
       class="pagination-area d-md-flex mt-15 mt-sm-20 mt-md-25 justify-content-between align-items-center"
@@ -29,13 +25,12 @@
         <ul class="pagination mb-0">
           <li class="page-item">
             <a class="page-link" href="#" @click="firstPage" aria-label="First">
-              <i class="flaticon-chevron-1"></i>
-              <i class="flaticon-chevron-1"></i>
+              &lt;&lt;  
             </a>
           </li>
           <li class="page-item">
             <a class="page-link" href="#" @click="prevPage" aria-label="Previous">
-              <i class="flaticon-chevron-1"></i>
+              &lt;
             </a>
           </li>
 
@@ -46,12 +41,12 @@
           </div>
           <li class="page-item">
             <a class="page-link" href="#" @click="nextPage" aria-label="Next">
-              <i class="flaticon-chevron"></i>
+              &gt;
             </a>
           </li>
           <li class="page-item">
             <a class="page-link" href="#" @click="lastPage" aria-label="Last">
-              <i class="flaticon-chevron"></i><i class="flaticon-chevron"></i>
+              &gt;&gt;
             </a>
           </li>
         </ul>
@@ -64,7 +59,7 @@ import axios from 'axios'
 import constants from '../../constants'
 export default {
   name: 'FlagList',
-  count:0,
+  count: 0,
   data() {
     return {
       flags: [],
@@ -82,7 +77,14 @@ export default {
       per_page: 0,
       total: 0,
       max_items: 0,
-      count:-1,
+      count: -1,
+      perPage: 3,
+      currentPage: 1,
+    }
+  },
+  computed: {
+    rows() {
+      return this.flags.length
     }
   },
   created() {
@@ -98,7 +100,11 @@ export default {
 
         let fetchedData = await axios.get(url)
         this.flags = fetchedData.data.data.data
+        console.log('fetchedData:', fetchedData)
+        console.log('this flags:', this.flags)
+
         this.first_page_url = fetchedData.data.data.first_page_url
+        console.log('this.first_page_url:', this.first_page_url)
         this.last_page_url = fetchedData.data.data.last_page_url
         this.total = fetchedData.data.data.total
         this.per_page = fetchedData.data.data.per_page
@@ -143,9 +149,8 @@ export default {
     linkPage(index) {
       this.getData(this.links[index].url)
     },
-    increment()
-    {
-      this.count++;
+    increment() {
+      this.count++
     }
   }
 }
