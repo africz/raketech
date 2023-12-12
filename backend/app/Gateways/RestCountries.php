@@ -4,12 +4,13 @@ namespace App\Gateways;
 use GuzzleHttp\Client;
 use Config;
 use App\ResponseTrait;
+use App\Gateways\BaseGateway;
 
 
-class RestCountries
+class RestCountries implements BaseGateway
 {
     use ResponseTrait;
-    public function getCountries()
+    public function getData():array
     {
         $client = new Client();
         $apiUrl = Config::get('countries.api_all');
