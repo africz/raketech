@@ -38,13 +38,8 @@ build/storybook:
 build/traefik:
 	$(call build_traefik)
 
-composer/install:
-	$(call composer,install)
-composer/update:
-	$(call composer,update)
-composer/dump-autoload:
-	$(call composer,dump-autoload)
-
+composer:
+	$(call composer)
 down:
 	$(call down)
 down/traefik:
@@ -179,7 +174,7 @@ endef
 
 define composer
 	$(call setup_env,$(ENV_FILE))
-	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-php composer $(1)
+	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-php composer $(RUN_ARGS)
 endef
 
 

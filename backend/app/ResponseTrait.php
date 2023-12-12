@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App;
 
 use Illuminate\Http\JsonResponse;
-use App\Http\Controllers\Controller as Controller;
 
-class BaseController extends Controller
+trait ResponseTrait
 {
-    public function sendResponse(array $result, string $message = null): JsonResponse
+    public function successResponse(array $result, string $message = null): JsonResponse
     {
         $response = [
             'success' => true,
@@ -30,8 +29,6 @@ class BaseController extends Controller
         if (!empty($errorMessages)) {
             $response['data'] = $errorMessages;
         }
-
-
         return response()->json($response, $code);
     }
 }

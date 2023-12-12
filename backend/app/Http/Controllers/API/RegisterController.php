@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\API;
 
+use App\ResponseTrait;
 use Illuminate\Http\Request;
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\JsonResponse;
 
-class RegisterController extends BaseController
+class RegisterController extends Controller
 {
+    use ResponseTrait;
     /**
      * Register api
      *
@@ -35,7 +37,7 @@ class RegisterController extends BaseController
         $success['token'] = $user->createToken('MyApp')->plainTextToken;
         $success['name'] = $user->name;
 
-        return $this->sendResponse($success, 'User register successfully.');
+        return $this->successResponse($success, 'User register successfully.');
     }
 
     /**
@@ -50,9 +52,9 @@ class RegisterController extends BaseController
             $success['token'] = $user->createToken('MyApp')->plainTextToken;
             $success['name'] = $user->name;
 
-            return $this->sendResponse($success, 'User login successfully.');
+            return $this->successResponse($success, 'User login successfully.');
         } else {
-            return $this->sendError('Unauthorised.', ['error' => 'Unauthorised']);
+            return $this->errorResponse('Unauthorised.', ['error' => 'Unauthorised']);
         }
     }
 }
