@@ -18,7 +18,7 @@ class CountriesController extends BaseController
 {
     use ResponseTrait;
 
-    public function list(RestCountries $restCountries, int $fromPage): JsonResponse
+    public function list(RestCountries $restCountries): JsonResponse
     {
         try {
             $cache = new RedisCache();
@@ -28,7 +28,7 @@ class CountriesController extends BaseController
                 $cache->set(Config::get('countries.redis_key'), $data,
                     Config::get('countries.redis_cache_expire'));
             }
-            $retVal = $this->paginate($data, Config::get('countries.items_per_page'), $fromPage);
+            $retVal = $this->paginate($data, Config::get('countries.items_per_page'));
             return $this->successResponse($retVal);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());

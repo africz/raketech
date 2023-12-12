@@ -1,17 +1,17 @@
 <template>
   <b-container>
-    <!-- <b-row v-for="(logo, index) in this.flags" :key="index" class="table-active">
+    <b-row v-for="(flag, index) in this.flags" :key="index" class="table-active">
       <b-col lg="2"></b-col>
       <b-col lg="4">
-        <b-img :count="increment()" v-bind:src="flags[this.count].flag" />
-        <p>{{ flags[this.count].name }}</p>
+        <b-img :count="increment()" v-bind:src="flag.flag" />
+        <p>{{index+'.) '+ flag.name }}</p>
       </b-col>
       <b-col lg="4">
-        <b-img :count="increment()" v-bind:src="flags[this.count].flag" />
-        <p>{{ flags[this.count].name }}</p>
+        <b-img v-bind:src="flag.flag" />
+        <p>{{ index+'.) '+ flag.name}}</p>
       </b-col>
       <b-col lg="2"></b-col>
-    </b-row> -->
+    </b-row>
 
     <div
       class="pagination-area d-md-flex mt-15 mt-sm-20 mt-md-25 justify-content-between align-items-center"
@@ -24,14 +24,10 @@
       <nav class="mt-15 mt-md-0">
         <ul class="pagination mb-0">
           <li class="page-item">
-            <a class="page-link" href="#" @click="firstPage" aria-label="First">
-              &lt;&lt;  
-            </a>
+            <a class="page-link" href="#" @click="firstPage" aria-label="First"> &lt;&lt; </a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="#" @click="prevPage" aria-label="Previous">
-              &lt;
-            </a>
+            <a class="page-link" href="#" @click="prevPage" aria-label="Previous"> &lt; </a>
           </li>
 
           <div v-for="(link, index) in this.links" :key="index">
@@ -40,14 +36,10 @@
             </li>
           </div>
           <li class="page-item">
-            <a class="page-link" href="#" @click="nextPage" aria-label="Next">
-              &gt;
-            </a>
+            <a class="page-link" href="#" @click="nextPage" aria-label="Next"> &gt; </a>
           </li>
           <li class="page-item">
-            <a class="page-link" href="#" @click="lastPage" aria-label="Last">
-              &gt;&gt;
-            </a>
+            <a class="page-link" href="#" @click="lastPage" aria-label="Last"> &gt;&gt; </a>
           </li>
         </ul>
       </nav>
@@ -79,7 +71,7 @@ export default {
       max_items: 0,
       count: -1,
       perPage: 3,
-      currentPage: 1,
+      currentPage: 1
     }
   },
   computed: {
@@ -88,17 +80,15 @@ export default {
     }
   },
   created() {
+    
     this.getData()
   },
   methods: {
-    async getData(event) {
+    async getData(url="") {
       try {
-        let url = null
-        if (event === undefined) {
-          url = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}/1`
-        }
-
-        let fetchedData = await axios.get(url)
+        const apiUrl = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}${url}`
+        console.log('apiUrl',apiUrl)
+        let fetchedData = await axios.get(apiUrl)
         this.flags = fetchedData.data.data.data
         console.log('fetchedData:', fetchedData)
         console.log('this flags:', this.flags)
@@ -150,7 +140,11 @@ export default {
       this.getData(this.links[index].url)
     },
     increment() {
-      this.count++
+      // console.log('this.count',this.count)
+      // console.log('this.flags.length-1',(this.flags.length-1))
+      if (this.count < (this.flags.length*2)-1) {
+        this.count++
+      }
     }
   }
 }

@@ -29,7 +29,7 @@ Route::controller(RegisterController::class)->group(function(){
 });
 
 Route::controller(CountriesController::class)->group(function(){
-    Route::get('countries/list/{page}', 'list');
+    Route::get('countries/list', 'list');
 });
 
         
