@@ -1,16 +1,12 @@
 <template>
   <b-container>
     <b-row v-for="(flag, index) in this.flags" :key="index" class="table-active">
-      <b-col lg="2"></b-col>
-      <b-col lg="4">
-        <b-img :count="increment()" v-bind:src="flag.flag" />
-        <p>{{index+'.) '+ flag.name }}</p>
-      </b-col>
-      <b-col lg="4">
+      <b-col lg="4" md="4" xs="4"></b-col>
+      <b-col lg="4" md="4" xs="4">
         <b-img v-bind:src="flag.flag" />
-        <p>{{ index+'.) '+ flag.name}}</p>
+        <p>{{ index + '.) ' + flag.name }}</p>
       </b-col>
-      <b-col lg="2"></b-col>
+      <b-col lg="4" md="4" xs="4"></b-col>
     </b-row>
 
     <div
@@ -80,14 +76,13 @@ export default {
     }
   },
   created() {
-    
     this.getData()
   },
   methods: {
-    async getData(url="") {
+    async getData(url = '') {
       try {
         const apiUrl = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}${url}`
-        console.log('apiUrl',apiUrl)
+        console.log('apiUrl', apiUrl)
         let fetchedData = await axios.get(apiUrl)
         this.flags = fetchedData.data.data.data
         console.log('fetchedData:', fetchedData)
@@ -139,12 +134,8 @@ export default {
     linkPage(index) {
       this.getData(this.links[index].url)
     },
-    increment() {
-      // console.log('this.count',this.count)
-      // console.log('this.flags.length-1',(this.flags.length-1))
-      if (this.count < (this.flags.length*2)-1) {
-        this.count++
-      }
+    increment(index) {
+      this.count=index+1
     }
   }
 }
