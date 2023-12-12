@@ -9,16 +9,14 @@
       <b-col lg="4" md="4" xs="4"></b-col>
     </b-row>
 
-    <div
-      class="pagination-area d-md-flex mt-15 mt-sm-20 mt-md-25 justify-content-between align-items-center"
-    >
-      <p class="mb-0 text-paragraph">
+    <b-row class="pagination-area justify-content-between align-items-center">
+      <p class="text-paragraph">
         Showing
         <span class="fw-bold"> from {{ this.from }} to {{ this.to }}</span>
         out of <span class="fw-bold">{{ this.total }}</span> results
       </p>
-      <nav class="mt-15 mt-md-0">
-        <ul class="pagination mb-0">
+      <nav class="pagination">
+        <ul class="pagination">
           <li class="page-item">
             <a class="page-link" href="#" @click="firstPage" aria-label="First"> &lt;&lt; </a>
           </li>
@@ -39,7 +37,7 @@
           </li>
         </ul>
       </nav>
-    </div>
+    </b-row>
   </b-container>
 </template>
 <script>
@@ -135,8 +133,12 @@ export default {
       this.getData(this.links[index].url)
     },
     increment(index) {
-      this.count=index+1
+      this.count = index + 1
     }
   }
 }
 </script>
+
+<style scoped>
+
+</style>
