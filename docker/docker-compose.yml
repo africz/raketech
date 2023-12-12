@@ -40,7 +40,7 @@ services:
       - host_network
     #tty need for error log to standard error
     tty: true
-    command: /bin/bash
+    #command: /bin/bash
     
   php:
     container_name: ${PROJECT_NAME}-${CONFIG}-php

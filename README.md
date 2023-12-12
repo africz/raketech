@@ -36,9 +36,14 @@ make up
 make composer/install
 
 
+# Application urls
 
-Start application 
-Visit https://fe.localhost
+http://be.localhost
+http://fe.localhost
+http://nodefe.localhost
+http://redis-commander.localhost
+
+
 
 Mailbox to open verification emails
 http://localhost:1080
