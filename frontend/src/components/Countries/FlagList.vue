@@ -34,49 +34,61 @@
             results
           </p>
         </div>
-        <div>
-          <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
-            <a
-              @click="prevPage"
-              href="#"
-              class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
-            >
-              <span class="sr-only">Previous</span>
-              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path
-                  fill-rule="evenodd"
-                  d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z"
-                  clip-rule="evenodd"
-                />
-              </svg>
-            </a>
-            <div v-for="(link, index) in this.links" :key="index">
-              <a
-                v-if="index > 0 && index < this.max_items"
-                v-bind:class="this.isActive(index)"
-                href="#"
-                @click="linkPage(index)"
-                class="relative z-10 inline-flex items-center px-4 py-2 text-sm font-semibold  focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                >{{ index }}</a
-              >
-            </div>
 
+        <ol class="flex justify-center gap-1 text-xs font-medium">
+          <li>
             <a
-              @click="nextPage"
               href="#"
-              class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+              @click="prevPage"
+              class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
             >
-              <span class="sr-only">Next</span>
-              <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+              <span class="sr-only">Prev Page</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3 w-3"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
                 <path
                   fill-rule="evenodd"
-                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
                   clip-rule="evenodd"
                 />
               </svg>
             </a>
-          </nav>
-        </div>
+          </li>
+
+          <div v-for="(link, index) in this.links" :key="index">
+            <li v-if="index > 0 && index < this.max_items" v-bind:class="this.isActive(index)">
+              <a 
+              class="block h-8 w-8 rounded border  text-center leading-8"
+              href="#" @click="linkPage(index)">{{ index }}</a>
+            </li>
+          </div>
+
+          <li>
+            <a
+              href="#"
+              @click="nextPage"
+              class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+            >
+              <span class="sr-only">Next Page</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-3 w-3"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </a>
+          </li>
+        </ol>
+
       </div>
     </div>
 
@@ -196,9 +208,9 @@ export default {
     isActive(index) {
       //alert(index+'-'+this.current_page)
       if (index === this.current_page) {
-        return 'bg-indigo-600 focus-visible:outline-indigo-600 text-white'
+        return 'border-indigo-600 bg-indigo-600  text-white'
       }
-      return 'bg-white text-black'
+      return 'border-gray-100 bg-white  text-gray-900'
     },
     linkPage(index) {
       this.getData(this.links[index].url)
