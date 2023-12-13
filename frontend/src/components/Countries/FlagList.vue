@@ -1,5 +1,7 @@
 <template>
   <div class="container mx-auto">
+    <h1 class="text-3xl font-bold">Country flags of the world</h1>
+    <!-- flaglist -->
     <div class="grid grid-cols-3 gap-2">
       <div v-for="(flag, index) in this.flags" :key="index" class="table-active">
         <img v-bind:src="flag.flag" alt="" />
@@ -7,6 +9,7 @@
       </div>
     </div>
 
+    <!-- paging -->
     <div
       class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
     >
@@ -232,3 +235,8 @@ export default {
   }
 }
 </script>
+<style scoped>
+h1{
+  padding: 2rem;
+}
+</style>>
