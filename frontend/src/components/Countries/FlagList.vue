@@ -1,15 +1,13 @@
 <template>
-  <b-container>
-    <b-row v-for="(flag, index) in this.flags" :key="index" class="table-active">
-      <b-col lg="4" md="4" xs="4"></b-col>
-      <b-col lg="4" md="4" xs="4">
-        <b-img v-bind:src="flag.flag" />
-        <p>{{ index + '.) ' + flag.name }}</p>
-      </b-col>
-      <b-col lg="4" md="4" xs="4"></b-col>
-    </b-row>
+  <div class="flex justify-center">
+    <div class="grid grid-cols-3 gap-2">
+      <div v-for="(flag, index) in this.flags" :key="index" class="table-active">
+        <img v-bind:src="flag.flag" alt="" />
+        <p>{{flag.name }}</p>
+      </div>
+    </div>
 
-    <b-row class="pagination-area justify-content-between align-items-center">
+    <div class="pagination-area justify-content-between align-items-center">
       <p class="text-paragraph">
         Showing
         <span class="fw-bold"> from {{ this.from }} to {{ this.to }}</span>
@@ -37,8 +35,8 @@
           </li>
         </ul>
       </nav>
-    </b-row>
-  </b-container>
+    </div>
+  </div>
 </template>
 <script>
 import axios from 'axios'
@@ -140,5 +138,5 @@ export default {
 </script>
 
 <style scoped>
-
+  
 </style>
