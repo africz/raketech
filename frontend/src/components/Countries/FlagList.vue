@@ -10,18 +10,6 @@
     <div
       class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
     >
-      <div class="flex flex-1 justify-between sm:hidden">
-        <a
-          href="#"
-          class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >Previous</a
-        >
-        <a
-          href="#"
-          class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
-          >Next</a
-        >
-      </div>
       <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
         <div>
           <p class="text-sm text-gray-700">
@@ -39,20 +27,46 @@
           <li>
             <a
               href="#"
+              @click="firstPage"
+              class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+            >
+              <span class="sr-only">First Page</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M18.75 19.5l-7.5-7.5 7.5-7.5m-6 15L5.25 12l7.5-7.5"
+                />
+              </svg>
+            </a>
+          </li>
+
+          <li>
+            <a
+              href="#"
               @click="prevPage"
               class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
             >
               <span class="sr-only">Prev Page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-3"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
               >
                 <path
-                  fill-rule="evenodd"
-                  d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z"
-                  clip-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.75 19.5L8.25 12l7.5-7.5"
                 />
               </svg>
             </a>
@@ -60,9 +74,12 @@
 
           <div v-for="(link, index) in this.links" :key="index">
             <li v-if="index > 0 && index < this.max_items" v-bind:class="this.isActive(index)">
-              <a 
-              class="block h-8 w-8 rounded border  text-center leading-8"
-              href="#" @click="linkPage(index)">{{ index }}</a>
+              <a
+                class="block h-8 w-8 rounded border text-center leading-8"
+                href="#"
+                @click="linkPage(index)"
+                >{{ index }}</a
+              >
             </li>
           </div>
 
@@ -70,57 +87,51 @@
             <a
               href="#"
               @click="nextPage"
-              class="inline-flex h-8 w-8 items-center justify-center rounded border border-gray-100 bg-white text-gray-900 rtl:rotate-180"
+              class="inline-flex h-8 w-8 items-center justify-center rounded border bg-white text-gray-900 rtl:rotate-180"
             >
               <span class="sr-only">Next Page</span>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-3 w-3"
-                viewBox="0 0 20 20"
-                fill="currentColor"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
               >
                 <path
-                  fill-rule="evenodd"
-                  d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-                  clip-rule="evenodd"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              @click="lastPage"
+              class="inline-flex h-8 w-8 items-center justify-center rounded border bg-white text-gray-900 rtl:rotate-180"
+            >
+              <span class="sr-only">Last Page</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+                class="w-6 h-6"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M11.25 4.5l7.5 7.5-7.5 7.5m-6-15l7.5 7.5-7.5 7.5"
                 />
               </svg>
             </a>
           </li>
         </ol>
-
       </div>
     </div>
-
-    <!-- <div class="pagination-area justify-content-between align-items-center">
-      <p class="text-paragraph">
-        Showing
-        <span class="fw-bold"> from {{ this.from }} to {{ this.to }}</span>
-        out of <span class="fw-bold">{{ this.total }}</span> results
-      </p>
-      <nav class="pagination">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" href="#" @click="firstPage" aria-label="First"> &lt;&lt; </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#" @click="prevPage" aria-label="Previous"> &lt; </a>
-          </li>
-
-          <div v-for="(link, index) in this.links" :key="index">
-            <li v-if="index > 0 && index < this.max_items" v-bind:class="this.isActive(index)">
-              <a class="page-link" href="#" @click="linkPage(index)">{{ index }}</a>
-            </li>
-          </div>
-          <li class="page-item">
-            <a class="page-link" href="#" @click="nextPage" aria-label="Next"> &gt; </a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="#" @click="lastPage" aria-label="Last"> &gt;&gt; </a>
-          </li>
-        </ul>
-      </nav>
-    </div> -->
   </div>
 </template>
 <script>
@@ -221,5 +232,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>
