@@ -1,9 +1,12 @@
 <script setup>
-import { FlagList } from '@/components'
+import { FlagList, Login,Logout,UserProfile } from '@/components'
 </script>
 
 <template>
   <main>
+    <UserProfile />
+    <Login />
+    <Logout />
     <FlagList />
   </main>
 </template>
