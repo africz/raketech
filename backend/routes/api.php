@@ -1,10 +1,7 @@
 <?php
   
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
   
-use App\Http\Controllers\API\RegisterController;
-use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\CountriesController;
   
 /*
@@ -17,22 +14,8 @@ use App\Http\Controllers\API\CountriesController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
   
-Route::controller(RegisterController::class)->group(function(){
-    Route::post('register', 'register');
-    Route::post('login', 'login');
-});
 
 Route::controller(CountriesController::class)->group(function(){
-    Route::get('countries/list', 'list');
-});
-
-        
-Route::middleware('auth:sanctum')->group( function () {
-    Route::resource('products', ProductController::class);
+    Route::get('/api/countries/list', 'list');
 });

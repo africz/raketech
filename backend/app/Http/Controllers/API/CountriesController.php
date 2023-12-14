@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\API\BaseController as BaseController;
+use App\Http\Controllers\Controller;
 use App\Gateways\RestCountries;
 use Illuminate\Http\JsonResponse;
 use App\ResponseTrait;
@@ -14,7 +14,7 @@ use Config;
 use App\Cache\RedisCache;
 
 
-class CountriesController extends BaseController
+class CountriesController extends Controller
 {
     use ResponseTrait;
 
