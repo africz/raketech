@@ -9,9 +9,9 @@ use App\Http\Controllers\API\AuthController;
 //     Route::get('/api/countries/list', 'list');
 // })->middleware('auth');
 
-//Route::group(['middleware' => 'auth'], function () {
+Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/countries/list', [CountriesController::class, 'list']);
-//});
+});
 
 
 

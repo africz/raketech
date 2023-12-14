@@ -140,9 +140,11 @@
 <script>
 import axios from 'axios'
 import constants from '../../constants'
+import { useAuth0 } from '@auth0/auth0-vue'
 export default {
   name: 'FlagList',
   count: 0,
+
   data() {
     return {
       flags: [],
@@ -177,8 +179,16 @@ export default {
     async getData(url = '') {
       try {
         const apiUrl = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}${url}`
-        console.log('apiUrl', apiUrl)
-        let fetchedData = await axios.get(apiUrl)
+        const auth0 = useAuth0()
+        const accessToken = await auth0.getAccessTokenSilently()
+        console.log('accessToken:', accessToken)
+        console.log('apiUrl:', apiUrl)
+        let fetchedData = await axios.get(apiUrl, {
+          headers: {
+            Authorization: 'Bearer ' + accessToken
+          }
+        })
+
         this.flags = fetchedData.data.data.data
         console.log('fetchedData:', fetchedData)
         console.log('this flags:', this.flags)
@@ -236,7 +246,8 @@ export default {
 }
 </script>
 <style scoped>
-h1{
+h1 {
   padding: 2rem;
 }
-</style>>
+</style>
+>
