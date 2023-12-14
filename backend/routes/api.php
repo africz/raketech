@@ -4,9 +4,14 @@ use Auth0\Laravel\Facade\Auth0;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CountriesController;
 
-Route::controller(CountriesController::class)->group(function(){
-    Route::get('/api/countries/list', 'list');
+// Route::controller(CountriesController::class)->group(function(){
+//     Route::get('/api/countries/list', 'list');
+// })->middleware('auth');
+
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/api/countries/list', [CountriesController::class, 'list']);
 });
+
 
 Route::get('/private', function () {
   return response()->json([
