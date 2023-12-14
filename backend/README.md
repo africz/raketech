@@ -1,66 +1,151 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![Auth0 Laravel SDK](https://cdn.auth0.com/website/sdks/banners/laravel-auth0-banner.png)
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+:books: [Documentation](#documentation) — :rocket: [Getting Started](#getting-started) — :round_pushpin: [Routes](#demonstration-routes) — :wrench: [Default Changes](#changes-to-the-default-laravel-application)
 
-## About Laravel
+This is a sample project demonstrating how to integrate [the Auth0 Laravel SDK](https://github.com/auth0/laravel-auth0) into a Laravel 9 application. For Laravel 10 applications, the integration steps are identical.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Documentation
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Guidance on integrating Auth0 into your Laravel application can be found here:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- [Auth0 Laravel SDK Readme](https://github.com/auth0/laravel-auth0/blob/master/README.md)
+- [Auth0 Laravel SDK Session Authentication Quickstart](https://auth0.com/docs/quickstart/webapp/laravel)
+- [Auth0 Laravel SDK Token Authorization Quickstart](https://auth0.com/docs/quickstart/backend/laravel)
 
-## Learning Laravel
+You may also find the following documentation from the SDK's GitHub repository useful:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- [docs/Configuration](https://github.com/auth0/laravel-auth0/blob/master/docs/Configuration.md)
+- [docs/Events](https://github.com/auth0/laravel-auth0/blob/master/docs/Events.md)
+- [docs/Installation](https://github.com/auth0/laravel-auth0/blob/master/docs/Installation.md)
+- [docs/Management](https://github.com/auth0/laravel-auth0/blob/master/docs/Management.md)
+- [docs/Users](https://github.com/auth0/laravel-auth0/blob/master/docs/Users.md)
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+## Getting Started
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Use Composer's `create-project` command to clone this repository and install the dependencies:
 
-## Laravel Sponsors
+```bash
+composer create-project auth0-samples/laravel auth0-laravel-quickstart && cd auth0-laravel-quickstart
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Authenticate with Auth0 using the bundled Auth0 CLI:
 
-### Premium Partners
+```bash
+./auth0 login
+```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+> **Note**  
+> Authenticate as a "user" if prompted.
 
-## Contributing
+Create an Auth0 Application:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```bash
+./auth0 apps create \
+  --name "My Laravel Backend" \
+  --type "regular" \
+  --auth-method "post" \
+  --callbacks "http://be.localhost/callback" \
+  --logout-urls "http://be.localhost" \
+  --reveal-secrets \
+  --no-input \
+  --json > .auth0.app.json
+```
 
-## Code of Conduct
+Create an Auth0 API:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+./auth0 apis create \
+  --name "My Laravel Backend API" \
+  --identifier "https://github.com/auth0/laravel-auth0" \
+  --offline-access \
+  --no-input \
+  --json > .auth0.api.json
+```
 
-## Security Vulnerabilities
+Run the application:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+php artisan serve
+```
+
+## Demonstration Routes
+
+This sample includes a few demonstration routes to help you get started.
+
+### Session-Based Authentication
+
+The SDK automatically registers the following routes for session-based authentication:
+
+| Method | Route                                        | Description                                                                                                |
+| ------ | -------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| GET    | [/login](https://be.localhost/login)       | Starts the user authentication flow. Sets up some initial cookies, and redirects to Auth0 to authenticate. |
+| GET    | [/callback](https://be.localhost/callback) | Handles the return callback from Auth0. Completes setting up the user's Laravel session.                   |
+| GET    | [/logout](https://be.localhost/logout)     | Logs the user out.                                                                                         |
+
+The `routes/web.php` file contains routes that demonstrate working with session-based authentication. These are:
+
+| Method | Route                                      | Description                                                     |
+| ------ | ------------------------------------------ | --------------------------------------------------------------- |
+| GET    | [/private](https://be.localhost/private) | Demonstrates how to protect a route with the `auth` middleware. |
+| GET    | [/scope](https://be.localhost/scope)     | Demonstrates how to protect a route with the `can` middleware.  |
+| GET    | [/colors](https://be.localhost/colors)   | Demonstrates how to make Management API calls.                  |
+
+### Token-Based Authorization
+
+The `routes/api.php` file contains routes that demonstrate token-based authorization. These are:
+
+| Method | Route                                              | Description                                                          |
+| ------ | -------------------------------------------------- | -------------------------------------------------------------------- |
+| GET    | [/api](https://be.localhost/api)                 | Demonstrates how to extract information from the request token.      |
+| GET    | [/api/private](https://be.localhost/api/private) | Demonstrates how to protect an API route with the `auth` middleware. |
+| GET    | [/api/scope](https://be.localhost/api/scope)     | Demonstrates how to protect an API route with the `can` middleware.  |
+| GET    | [/api/me](https://be.localhost/api/me)           | Demonstrates how to make Management API calls.                       |
+
+## Changes to the Default Laravel Application
+
+This sample is based on [the default Laravel application](https://github.com/laravel/laravel) you can [create](https://laravel.com/docs/9.x/installation#your-first-laravel-project) using `laravel new` or `composer create-project`.
+
+> **Note**  
+> For Laravel 10, use `composer create-project laravel/laravel:^10.0` and follow the same steps outlined below.
+
+Few changes are necessary to get started, as the SDK automatically sets up all the necessary guards, middleware and other services necessary to support authentication and authorization. The following is a list of changes that have been applied:
+
+- The `auth0/login` package has been added to the `composer.json` file, using:
+
+    ```bash
+    composer require auth0/login:^7.8 --update-with-all-dependencies
+    ```
+
+- The `config/auth0.php` file was generated, using:
+
+    ```bash
+    php artisan vendor:publish --tag auth0
+    ```
+
+- The `routes/web.php` file was updated to include the demonstration routes.
+- The `routes/api.php` file was updated to include the demonstration routes.
+
+## Feedback
+
+We appreciate your feedback! Please create an issue in this repository or reach out to us on [Community](https://community.auth0.com/).
+
+## Vulnerability Reporting
+
+Please do not report security vulnerabilities on the public GitHub issue tracker. The [Responsible Disclosure Program](https://auth0.com/whitehat) details the procedure for disclosing security issues.
+
+## What is Auth0?
+
+Auth0 helps you to easily:
+
+- implement authentication with multiple identity providers, including social (e.g., Google, Facebook, Microsoft, LinkedIn, GitHub, Twitter, etc), or enterprise (e.g., Windows Azure AD, Google Apps, Active Directory, ADFS, SAML, etc.)
+- log in users with username/password databases, passwordless, or multi-factor authentication
+- link multiple user accounts together
+- generate signed JSON Web Tokens to authorize your API calls and flow the user identity securely
+- access demographics and analytics detailing how, when, and where users are logging in
+- enrich user profiles from other data sources using customizable JavaScript rules
+
+[Why Auth0?](https://auth0.com/why-auth0)
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is licensed under the MIT license. See the [LICENSE](./LICENSE) file for more info.

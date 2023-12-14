@@ -1,4 +1,0 @@
-composer create-project laravel/laravel be
-composer require laravel/sanctum
-
-https://www.itsolutionstuff.com/post/laravel-10-rest-api-authentication-using-sanctum-tutorialexample.html
