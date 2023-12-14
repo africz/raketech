@@ -199,6 +199,17 @@ export default {
         console.log(error)
       }
     },
+    async getToken() {
+      const apiUrl = `${constants.API_LOGIN}`
+      const requestData = {
+        client_id: '2fVoy8d9vhDnx5uDHHwW9kkCKHe0vS6b',
+        client_secret: '_dJjwFblTCgSOuv1UNi_qniikVvT7D9I3C9zYjUbkOvN40TF2_gAJjQHP6s8HyE_',
+        audience: 'https://github.com/auth0/laravel-auth0',
+        grant_type: 'client_credentials'
+      }
+      const loginResult = await axios.get(apiUrl, requestData)
+      console.log(`login result:${loginResult}`)
+    },
     nextPage() {
       if (this.next_page_url) {
         this.getData(this.next_page_url)
@@ -236,7 +247,8 @@ export default {
 }
 </script>
 <style scoped>
-h1{
+h1 {
   padding: 2rem;
 }
-</style>>
+</style>
+>

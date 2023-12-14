@@ -39,7 +39,13 @@ return [
         'web' => [
             'driver' => 'session',
             'provider' => 'users',
+	],
+	 'api' => [
+            'driver' => 'auth0-token',
+            'provider' => 'users',
+            'hash' => false,
         ],
+
     ],
 
     /*

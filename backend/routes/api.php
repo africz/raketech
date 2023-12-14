@@ -3,6 +3,7 @@
 use Auth0\Laravel\Facade\Auth0;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CountriesController;
+use App\Http\Controllers\API\AuthController;
 
 Route::get('/private', function () {
   return response()->json([
@@ -11,13 +12,13 @@ Route::get('/private', function () {
 })->middleware('auth');
 
 Route::get('/scope', function () {
-    return response()->json([
-      'message' => 'Your token is valid and has the `read:messages` permission; you are authorized.',
-    ]);
+  return response()->json([
+    'message' => 'Your token is valid and has the `read:messages` permission; you are authorized.',
+  ]);
 })->middleware('auth')->can('read:messages');
 
 Route::get('/', function () {
-  if (! auth()->check()) {
+  if (!auth()->check()) {
     return response()->json([
       'message' => 'You did not provide a valid token.',
     ]);
@@ -30,9 +31,19 @@ Route::get('/', function () {
   ]);
 });
 
-Route::controller(CountriesController::class)->group(function(){
-    Route::get('countries/list', 'list');
+ Route::controller(CountriesController::class)->group(function(){
+     Route::get('/api/countries/list', 'list');
+ })->middleware('auth');
+
+// Route::group(['middleware' => 'auth:api'], function () {
+//   Route::get('countries/list', [CountriesController::class, 'list']);
+// });
+
+
+Route::controller(AuthController::class)->group(function(){
+  Route::get('/callback', 'callback');
 });
+
 
 Route::get('/me', function () {
   $user = auth()->id();
