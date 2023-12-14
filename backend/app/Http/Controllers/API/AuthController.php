@@ -33,6 +33,7 @@ class AuthController extends Controller
             audience: ['https://github.com/auth0/laravel-auth0']
         );
 
+
         $this->auth0 = new Auth0($config);
         $this->log = $logger;
     }
@@ -40,18 +41,27 @@ class AuthController extends Controller
     public function callback(Request $request)
     {
         $this->log->info('callback', $request->toArray());
-        return Redirect::to('/');
+        return Redirect::to('/api');
     }
 
-    public function auth(): JsonResponse
+    public function auth()
     {
         $retVal = [];
 
         try {
-            $retVal = $this->getToken();
-            $token = $this->auth0->decode($retVal->access_token);
+            if (!$this->auth0->isAuthenticated()) {
+                $result = $this->auth0->login();
+                //return Redirect::to('/login');
+            }
 
-            return $this->successResponse($retVal);
+            if ($this->auth0->isAuthenticated()) {
+                $retVal = $this->getToken();
+                $token = $this->auth0->decode($retVal->access_token);
+                return $this->successResponse($retVal);
+            } else {
+                return $this->errorResponse('Login required: http://be.localhost/login');
+            }
+
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }
@@ -60,8 +70,8 @@ class AuthController extends Controller
     public function getToken()
     {
         $requestData = [
-            'client_id' => 'TjXQnuh3sKvuH1v6IGaT6gJQaeyAlvhl',
-            'client_secret' => 'iT5vjtS6erYNd4Y24BgQqB9F9zzNb7X2QbRxUhlrDkemMB6EtXDb67uGymAXCjDQ',
+            'client_id' => 'XXpysmpkzE35d7eBF7y1zhHTRQ2G7rdW',
+            'client_secret' => '5NWF1uFT3ZhbU_2COm6rK8xdEBtiGd2VFQ0BenHfslkD9fIuSfIB4tzutT1EFLT4',
             'audience' => 'https://github.com/auth0/laravel-auth0',
             'grant_type' => 'client_credentials'
         ];

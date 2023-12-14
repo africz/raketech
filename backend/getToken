@@ -1,0 +1,4 @@
+curl --request POST \
+  --url https://attilafricz.eu.auth0.com/oauth/token \
+  --header 'content-type: application/json' \
+  --data '{"client_id":"XXpysmpkzE35d7eBF7y1zhHTRQ2G7rdW","client_secret":"5NWF1uFT3ZhbU_2COm6rK8xdEBtiGd2VFQ0BenHfslkD9fIuSfIB4tzutT1EFLT4","audience":"https://github.com/auth0/laravel-auth0","grant_type":"client_credentials"}'
