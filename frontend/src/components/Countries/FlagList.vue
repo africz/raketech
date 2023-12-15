@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto">
-    <h1 class="text-3xl font-bold">Country flags of the world</h1>
+    <h1 v-if="this.logged_in" class="text-3xl font-bold">Country flags of the world</h1>
     <!-- flaglist -->
     <div class="grid grid-cols-3 gap-2">
       <div v-for="(flag, index) in this.flags" :key="index" class="table-active">
@@ -10,7 +10,7 @@
     </div>
 
     <!-- paging -->
-    <div
+    <div 
       class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
     >
       <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
@@ -143,8 +143,8 @@ import constants from '../../constants'
 import { useAuth0 } from '@auth0/auth0-vue'
 export default {
   name: 'FlagList',
-  count: 0,
-
+  accessToken: null,
+  logged_in: false,
   data() {
     return {
       flags: [],
@@ -161,10 +161,7 @@ export default {
       path: null,
       per_page: 0,
       total: 0,
-      max_items: 0,
-      count: -1,
-      perPage: 3,
-      currentPage: 1
+      max_items: 0
     }
   },
   computed: {
@@ -172,29 +169,23 @@ export default {
       return this.flags.length
     }
   },
-  created() {
+  async created() {
+    const auth0 = useAuth0()
+    this.accessToken = await auth0.getAccessTokenSilently()
     this.getData()
   },
   methods: {
     async getData(url = '') {
       try {
         const apiUrl = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}${url}`
-        const auth0 = useAuth0()
-        const accessToken = await auth0.getAccessTokenSilently()
-        console.log('accessToken:', accessToken)
-        console.log('apiUrl:', apiUrl)
         let fetchedData = await axios.get(apiUrl, {
           headers: {
-            Authorization: 'Bearer ' + accessToken
+            Authorization: 'Bearer ' + this.accessToken
           }
         })
-
+        this.logged_in = true
         this.flags = fetchedData.data.data.data
-        console.log('fetchedData:', fetchedData)
-        console.log('this flags:', this.flags)
-
         this.first_page_url = fetchedData.data.data.first_page_url
-        console.log('this.first_page_url:', this.first_page_url)
         this.last_page_url = fetchedData.data.data.last_page_url
         this.total = fetchedData.data.data.total
         this.per_page = fetchedData.data.data.per_page
@@ -230,7 +221,6 @@ export default {
       }
     },
     isActive(index) {
-      //alert(index+'-'+this.current_page)
       if (index === this.current_page) {
         return 'border-indigo-600 bg-indigo-600  text-white'
       }
@@ -238,9 +228,6 @@ export default {
     },
     linkPage(index) {
       this.getData(this.links[index].url)
-    },
-    increment(index) {
-      this.count = index + 1
     }
   }
 }
@@ -250,4 +237,3 @@ h1 {
   padding: 2rem;
 }
 </style>
->
