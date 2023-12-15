@@ -40,6 +40,8 @@ build/traefik:
 
 composer:
 	$(call composer)
+composer/install:
+	$(call composer_fp,install)
 down:
 	$(call down)
 down/traefik:
@@ -67,11 +69,8 @@ log/nginx:
 log/mysql:
 	$(call container_log,mysql)
 
-be/install:
-	$(call be_install)
-fe/install:
-	$(call fe_install)
-
+install:
+	$(call install)
 mount/backend:
 	$(call mount_container,backend)
 mount/frontend:
@@ -91,9 +90,11 @@ mount/storybook:
 
 npm/fe:
 	$(call npm,nodefe)	
+npm/fe/install:
+	$(call npm_fp ,nodefe,install)	
+
 npm/ad:
 	$(call npm,nodead)	
-
 restart:
 	$(call restart)	
 
@@ -139,6 +140,11 @@ define npm
 	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-$(1) npm $(RUN_ARGS)
 endef
 
+define npm_fp
+	$(call setup_env,$(ENV_FILE))
+	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-$(1) npm $(2)
+endef
+
 
 
 define artisan_w_param
@@ -175,6 +181,11 @@ endef
 define composer
 	$(call setup_env,$(ENV_FILE))
 	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-php composer $(RUN_ARGS)
+endef
+
+define composer_fp
+	$(call setup_env,$(ENV_FILE))
+	docker exec -it -w ${WORKFOLDER} ${PROJECT_NAME}-${CONFIG}-php composer $(1)
 endef
 
 
@@ -217,11 +228,13 @@ define downProfile
 	@docker ps
 endef
 
-define be_install
+define install
 	@set -a
 	@$(call source $(ENV_FILE))
 	@echo === setup backend/.env file ===
-	cp ../backend/.env.example ../backend/.env
+	cp ../backend/env.example ../backend/.env
+	@echo === setup frontend/.env file ===
+	cp ../frontend/env.example ../frontend/.env
 	@echo === generate ssl cert ===
 	cd ./traefik && ./certgen
 	@echo === copy certs to nginx ===
@@ -229,14 +242,22 @@ define be_install
     cp -R traefik/config/ssl ubuntu/nginx
 	@echo === build images ===
 	@sleep $(SLEEP)
-	$(call build_all)
-	@echo === start containers ===
+	@make build
+	@echo === start containers to install frontend ===
 	@sleep $(SLEEP)
-	$(call up)
-	@echo === composer install packages ===
+	@make up/install
+	@echo === install frontend ===
 	@sleep $(SLEEP)
-	$(call composer,install)
-
+	@make npm/fe/install
+	@echo === down install ===
+	@sleep $(SLEEP)
+	@make down/install
+	@echo === start all containers ===
+	@sleep $(SLEEP)
+	@make up
+	@echo === install backend packages ===
+	@sleep $(SLEEP)
+	@make composer/install
 	@echo === generate app key ===
 	@make artisan key:generate
 	@echo === Ready ===

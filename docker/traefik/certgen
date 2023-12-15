@@ -1,4 +1,4 @@
 #!/bin/bash
 source ../.env
 mkcert -install
-mkcert -key-file ./config/ssl/key.pem -cert-file ./config/ssl/cert.pem ${PROJECT_NAME}.localhost
+mkcert -key-file ./config/ssl/key.pem -cert-file ./config/ssl/cert.pem be.localhost fe.localhost ad.localhost nodead.localhost nodefe.localhost sb.localhost redis-commander.localhost mailbox.localhost ${PROJECT_NAME}
