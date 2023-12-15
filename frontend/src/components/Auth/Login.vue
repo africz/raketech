@@ -27,7 +27,6 @@ export default {
     const { loginWithRedirect } = useAuth0()
 
     return {
-      logged_in: false,
       login: () => {
         loginWithRedirect()
       }

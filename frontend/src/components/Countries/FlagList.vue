@@ -161,8 +161,7 @@ export default {
       path: null,
       per_page: 0,
       total: 0,
-      max_items: 0,
-      logged_in: false
+      max_items: 0
     }
   },
   async created() {

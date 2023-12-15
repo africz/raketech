@@ -24,7 +24,6 @@ export default {
   setup() {
     const { logout } = useAuth0()
     return {
-      logged_in: false,
       logout: () => {
         logout({ logoutParams: { returnTo: window.location.origin } })
       }

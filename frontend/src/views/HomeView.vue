@@ -13,11 +13,6 @@ import { FlagList, Header } from '@/components'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'HomeView',
-  data() {
-    return {
-      logged_in: false
-    }
-  },
   create() {
     this.emitter.on('logged_in', (event) => {
       this.logged_in = event.logged_in
