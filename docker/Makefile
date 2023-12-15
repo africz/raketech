@@ -260,6 +260,8 @@ define install
 	@make composer/install
 	# @echo === generate app key ===
 	# @make artisan key:generate
+    @echo === list stopped containers ===
+	@docker ps -f "status=exited"
 	@echo === Ready ===
 	@echo http://fe.localhost              - frontend url
 	@echo http://be.localhost              - backend url
