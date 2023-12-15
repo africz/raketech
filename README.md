@@ -23,16 +23,7 @@ cd traefik
 
 # setup application 
 cd ../docker
-make setup
-
-make build 
-make up/install
-make npm/fe install
-make down/install
-
-make up
-make composer/install
-
+make install
 
 # Application urls
 
