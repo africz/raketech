@@ -3,9 +3,9 @@
     <h1 v-if="this.logged_in" class="text-3xl font-bold">Country flags of the world</h1>
     <!-- flaglist -->
     <div class="grid grid-cols-3 gap-2">
-      <div v-for="(flag, index) in this.flags" :key="index" class="table-active">
+      <div v-for="(flag, index) in this.flags" :key="index" class="flag">
         <img v-bind:src="flag.flag" alt="" />
-        <p>{{ flag.name }}</p>
+        <p class="title">{{ flag.name }}</p>
       </div>
     </div>
 
@@ -235,5 +235,13 @@ export default {
 <style scoped>
 h1 {
   padding: 2rem;
+}
+.flag{
+  padding-top:2rem;
+}
+.title{
+  padding-top: 1rem;
+  inline-size:320px;
+  overflow-wrap: break-word;
 }
 </style>
