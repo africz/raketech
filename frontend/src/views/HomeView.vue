@@ -5,7 +5,7 @@ import { FlagList, Header } from '@/components'
 <template>
   <main>
     <Header />
-    <p v-if="logged_in" class="info">Please log in to see the flags!</p>
+    <p v-if="!logged_in" class="info">Please log in to see the flags!</p>
     <FlagList />
   </main>
 </template>
@@ -13,7 +13,7 @@ import { FlagList, Header } from '@/components'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names
   name: 'HomeView',
-  create() {
+  created() {
     this.emitter.on('logged_in', (event) => {
       this.logged_in = event.logged_in
       this.$forceUpdate()
