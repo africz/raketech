@@ -1,1 +1,5 @@
-docker image ls | grep $1 | awk '{print $1}' | xargs docker image rmi
+if (( $# == 0 )); then
+    echo "Project name is mandatory parameter!"
+else
+    docker image ls | grep $1 | awk '{print $1}' | xargs docker image rmi 
+fi
