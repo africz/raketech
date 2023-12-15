@@ -1,11 +1,12 @@
 # Get the source code
-git clone git@github.com:africz/raketech.git
+```git clone git@github.com:africz/raketech.git```
+
 Make sure docker desktop is running
 I did test with Mac and Linux on Docker desktop
 
 # Set Docker environment
-cd raketetech/docker
-cp env.example .env
+```cd raketetech/docker```
+```cp env.example .env```
 edit .env and set project path, environment etc
 
 # MAC installation
@@ -18,14 +19,10 @@ PLATFORM=amd64 # amd64 for Linux | arm64v8 | for M2, M1
 PLATFORM_TRAEFIK=amd64 # amd64 for Linux | arm64 | for M2, M1
 PROJECT_PATH=/projects/raketech
 
-# Generate ssl certificate
-cd traefik
-./certgen
 
-
-# setup application 
-cd ../docker
-make install
+# Install application 
+```cd ../docker```
+```make install```
 
 # Application urls
 
@@ -33,7 +30,7 @@ http://be.localhost     - backend url
 http://fe.localhost     - production url  
 to get fe.localhost running
 
-use make npm/fe run build 
+use ```make npm/fe run build```
 
 http://nodefe.localhost - developer url
 http://redis-commander.localhost
@@ -47,10 +44,24 @@ Storybook
 http://sb.localhost 
 
 
+# Run on https connection
+
+Default setting is http to avoid any certificate issues. 
+Install process generated the necessary ssl certs.
+If you wish to try it on https you need to set protocol in all 
+environments.
+
+- in docker/.env 
+```DOCKER_STACK_SSL=true``
+- in backend/.env
+```APP_URL=https://be.localhost```
+- in frontend/.env
+```VITE_API_URL=https://be.localhost/api```
+
 
 # Run tests
 
-make test
+```make test```
 
 # Docker structure
 
@@ -63,45 +74,71 @@ make test
 - storybook     - design tool   
 - mailbox       - local smtp, mailbox ideal for development 
 
+This configuration is capable to handle many environments
+for example if you want to switch from Ubuntu to Almalinux 
+You can clone Ubuntu Config folder and make mods and run for working 
+Ubuntu and get experience with Alma, volumes are shared between configs.
+This flexible configuration is very useful in upgrading process to make it safely done.
+
 # Most used make commands:
 
-make up
-make down
-make npm/fe install
-make mount/php
-make artisan
-make composer/update 
-make build
-make build/php
-make uninstall (remove project docker images, volumes)
+```make up```
+```make down```
+```make restart```
+```make npm/fe install```
+```make mount/php```
+```make artisan```
+```make composer/update```
+```make build```
+```make build/php```
+```make uninstall``` (remove project docker images, volumes)
 
-make help to see all of them
+if you need to execute commands with space put the expression to ""
+like make composer "require package name"
+
+```make help``` to see all of them
 
 
 # Troubleshooting
 
-Please read first above # Install application title.
+!!! Please read first and execute # Install application section at top of the page !!!
 
-If make install fail
+If make install fail, simple try again with make install
+sometimes compiling or installing get stuck
+if reinstall not helps you need to execute install steps
+manually and fix the step if needs.
+I did test installer several times on Mac and Linux to make it
+trouble free.
 
 These are the manual steps:
 
 # Set project environment
-cd ../../backend
-cp env.example .env
+```cd ../../backend```
+```cp env.example .env```
 
-cd ../../frontend
-cp env.example .env
+```cd ../../frontend```
+```cp env.example .env```
 
-make build 
-make up/install
-make npm/fe install
-make down/install
+# Generate ssl certificate
+```cd traefik```
+```./certgen```
 
-make up
-make composer/install
+
+```make build```
+
+you can build by units 
+like make build/backend
+
+```make up/install```
+```make npm/fe install```
+```make composer/install```
+```make down/install```
+```make up```
 
 # Uninstall
 
-make down
-make uninstall
+```make down```
+```make uninstall```
+
+uninstall will remove related volumes, images
+it will not remove network
