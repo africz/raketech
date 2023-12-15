@@ -1,13 +1,10 @@
 <script setup>
-import { FlagList, Login,Logout,Header,Footer } from '@/components'
+import { FlagList, Header } from '@/components'
 </script>
 
 <template>
   <main>
-    <Header/>
-    <Login />
-    <Logout />
+    <Header />
     <FlagList />
-    <Footer/>
   </main>
 </template>

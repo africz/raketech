@@ -13,18 +13,8 @@
             </div>
             <div class="hidden md:block">
               <div class="ml-10 flex items-baseline space-x-4">
-                <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
-                <a
-                  href="#"
-                  class="bg-gray-900 text-white rounded-md px-3 py-2 text-sm font-medium"
-                  aria-current="page"
-                  >Login</a
-                >
-                <a
-                  href="#"
-                  class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium"
-                  >Logout</a
-                >
+                <Login />
+                <Logout />
               </div>
             </div>
           </div>
@@ -34,9 +24,13 @@
   </div>
 </template>
 <script>
+import { Login, Logout } from '@/components'
 export default {
   // eslint-disable-next-line vue/multi-word-component-names, vue/no-reserved-component-names
-  name: 'Header'
+  name: 'Header',
+  components: {
+    Login,
+    Logout
+  }
 }
 </script>
-
