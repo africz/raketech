@@ -302,6 +302,10 @@ endef
 define upProfile
 	@set -a
 	$(call source $(ENV_FILE))
+	@echo === launch network ===
+	@./scripts/network
+	@echo === launch traefik proxy ===
+	$(call upTraefik)
 	@COMPOSE_PROFILES=$(1),common docker compose up -d
 	@echo === list stopped containers ===
 	@docker ps -f "status=exited"
