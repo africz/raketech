@@ -10,7 +10,8 @@
     </div>
 
     <!-- paging -->
-    <div v-if="this.logged_in"
+    <div
+      v-if="this.logged_in"
       class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
     >
       <div class="hidden sm:flex sm:flex-1 sm:items-center sm:justify-between">
@@ -144,7 +145,6 @@ import { useAuth0 } from '@auth0/auth0-vue'
 export default {
   name: 'FlagList',
   accessToken: null,
-  logged_in: false,
   data() {
     return {
       flags: [],
@@ -161,12 +161,8 @@ export default {
       path: null,
       per_page: 0,
       total: 0,
-      max_items: 0
-    }
-  },
-  computed: {
-    rows() {
-      return this.flags.length
+      max_items: 0,
+      logged_in: false
     }
   },
   async created() {
@@ -184,6 +180,10 @@ export default {
           }
         })
         this.logged_in = true
+        this.emitter.emit('logged_in', {
+          logged_in: this.logged_in
+        })
+        this.$forceUpdate();
         this.flags = fetchedData.data.data.data
         this.first_page_url = fetchedData.data.data.first_page_url
         this.last_page_url = fetchedData.data.data.last_page_url
@@ -236,12 +236,12 @@ export default {
 h1 {
   padding: 2rem;
 }
-.flag{
-  padding-top:2rem;
+.flag {
+  padding-top: 2rem;
 }
-.title{
+.title {
   padding-top: 1rem;
-  inline-size:320px;
+  inline-size: 320px;
   overflow-wrap: break-word;
 }
 </style>
