@@ -258,8 +258,8 @@ define install
 	@echo === install backend packages ===
 	@sleep $(SLEEP)
 	@make composer/install
-	@echo === generate app key ===
-	@make artisan key:generate
+	# @echo === generate app key ===
+	# @make artisan key:generate
 	@echo === Ready ===
 	@echo http://fe.localhost              - frontend url
 	@echo http://be.localhost              - backend url
