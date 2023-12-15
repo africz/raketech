@@ -1,5 +1,7 @@
 # Get the source code
 git clone git@github.com:africz/raketech.git
+Make sure docker desktop is running
+I did test with Mac and Linux on Docker desktop
 
 # Set Docker environment
 cd raketetech/docker

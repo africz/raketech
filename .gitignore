@@ -1,3 +1,4 @@
 root/storybook-static/
 backend/storage/
 install/
+docker/.env

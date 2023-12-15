@@ -21,6 +21,10 @@ build/frontend:
 	$(call build,frontend)
 build/admin:
 	$(call build,admin)
+build/redis:
+	$(call build,redis)
+build/redis-commander:
+	$(call build,redis-commander)
 
 build/php:
 	$(call build,php)
@@ -249,15 +253,15 @@ define install
 	@echo === install frontend ===
 	@sleep $(SLEEP)
 	@make npm/fe/install
+	@echo === install backend packages ===
+	@sleep $(SLEEP)
+	@make composer/install
 	@echo === down install ===
 	@sleep $(SLEEP)
 	@make down/install
 	@echo === start all containers ===
-	@sleep $(SLEEP)
 	@make up
-	@echo === install backend packages ===
 	@sleep $(SLEEP)
-	@make composer/install
 	# @echo === generate app key ===
 	# @make artisan key:generate
     @echo === list stopped containers ===
