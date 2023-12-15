@@ -130,14 +130,19 @@ you can build by units
 like make build/backend
 
 ```make up/install```
+
 ```make npm/fe install```
+
 ```make composer/install```
+
 ```make down/install```
+
 ```make up```
 
 # Uninstall
 
 ```make down```
+
 ```make uninstall```
 
 uninstall will remove related volumes, images
