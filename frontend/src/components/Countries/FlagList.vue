@@ -165,24 +165,34 @@ export default {
     }
   },
   async created() {
-    const auth0 = useAuth0()
-    this.accessToken = await auth0.getAccessTokenSilently()
-    this.getData()
+    try {
+      const auth0 = useAuth0()
+      this.accessToken = await auth0.getAccessTokenSilently().catch((error) => {
+        throw new Error(error)
+      })
+      this.getData()
+    } catch (error) {
+      console.log('FlagList.vue,created():', error)
+    }
   },
   methods: {
     async getData(url = '') {
       try {
         const apiUrl = `${import.meta.env.VITE_API_URL}/${constants.API_FLAG_LIST}${url}`
-        let fetchedData = await axios.get(apiUrl, {
-          headers: {
-            Authorization: 'Bearer ' + this.accessToken
-          }
-        })
+        let fetchedData = await axios
+          .get(apiUrl, {
+            headers: {
+              Authorization: 'Bearer ' + this.accessToken
+            }
+          })
+          .catch((error) => {
+            throw new Error(error)
+          })
         this.logged_in = true
         this.emitter.emit('logged_in', {
           logged_in: this.logged_in
         })
-        this.$forceUpdate();
+        this.$forceUpdate()
         this.flags = fetchedData.data.data.data
         this.first_page_url = fetchedData.data.data.first_page_url
         this.last_page_url = fetchedData.data.data.last_page_url
@@ -196,7 +206,7 @@ export default {
         this.from = fetchedData.data.data.from
         this.to = fetchedData.data.data.to
       } catch (error) {
-        console.log(error)
+        console.log('FlagList.vue,getData():', error)
       }
     },
     nextPage() {

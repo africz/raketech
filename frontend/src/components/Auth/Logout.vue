@@ -18,7 +18,6 @@ export default {
     this.emitter.on("logged_in", (event) => {
       this.logged_in=event.logged_in;
       this.$forceUpdate();
-      console.log('Logout,logged_in:',this.logged_in)
     });
   },
   setup() {
