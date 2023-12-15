@@ -236,14 +236,16 @@ define be_install
 	@echo === composer install packages ===
 	@sleep $(SLEEP)
 	$(call composer,install)
-	@echo === artisan start migrations  wait 10 sec for database start ===
-	@sleep 10 
-	$(call artisan_w_param,migrate:fresh)
+
 	@echo === generate app key ===
 	@make artisan key:generate
 	@echo === Ready ===
-	@echo https://be.localhost - application url
-	@echo http://localhost:1080 - mailbox helper url
+	@echo http://fe.localhost              - frontend url
+	@echo http://be.localhost              - backend url
+	@echo http://sb.localhost              - storybook url
+	@echo http://nodefe.localhost 	       - developer url
+	@echo http://localhost:1080            - mailbox helper url
+	@echo http://redis-commander.localhost - redis admin url
 endef
 
 define uninstall
