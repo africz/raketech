@@ -2,7 +2,7 @@
 namespace App\Gateways;
 
 use GuzzleHttp\Client;
-use Config;
+use Illuminate\Support\Facades\Config;
 use App\ResponseTrait;
 use App\Gateways\BaseGateway;
 

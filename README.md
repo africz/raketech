@@ -109,6 +109,11 @@ like make composer "require package name"
 
 ```make help``` to see all of them
 
+if parameters has space use ""
+
+make artisan "make:test UserTest --unit"
+
+
 
 # Troubleshooting
 
