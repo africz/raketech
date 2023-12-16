@@ -6,6 +6,7 @@ I did test with Mac and Linux on Docker desktop
 
 # Set Docker environment
 ```cd raketetech/docker```
+
 ```cp env.example .env```
 edit .env and set project path, environment etc
 
@@ -22,6 +23,7 @@ PROJECT_PATH=/projects/raketech
 
 # Install application 
 ```cd ../docker```
+
 ```make install```
 
 # Application urls
@@ -83,14 +85,23 @@ This flexible configuration is very useful in upgrading process to make it safel
 # Most used make commands:
 
 ```make up```
+
 ```make down```
+
 ```make restart```
+
 ```make npm/fe install```
+
 ```make mount/php```
+
 ```make artisan```
+
 ```make composer/update```
+
 ```make build```
+
 ```make build/php```
+
 ```make uninstall``` (remove project docker images, volumes)
 
 if you need to execute commands with space put the expression to ""
@@ -114,13 +125,16 @@ These are the manual steps:
 
 # Set project environment
 ```cd ../../backend```
+
 ```cp env.example .env```
 
 ```cd ../../frontend```
+
 ```cp env.example .env```
 
 # Generate ssl certificate
 ```cd traefik```
+
 ```./certgen```
 
 
