@@ -5,10 +5,10 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class ExampleTest extends TestCase
+class CountriesControllerTest extends TestCase
 {
     /**
-     * A basic test example.
+     * A basic test CountriesController.
      *
      * @return void
      */
@@ -18,4 +18,11 @@ class ExampleTest extends TestCase
 
         $response->assertStatus(200);
     }
+    public function test_api_countries_list_is_protected()
+    {
+        $response = $this->get('/api/countries/list');
+
+        $response->assertStatus(302);
+    }
+
 }
