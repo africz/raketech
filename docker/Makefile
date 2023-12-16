@@ -70,7 +70,7 @@ log/mysql:
 	$(call container_log,mysql)
 
 install:
-	$(call install)
+	$(call setup)
 mount/backend:
 	$(call mount_container,backend)
 mount/frontend:
@@ -228,7 +228,7 @@ define downProfile
 	@docker ps
 endef
 
-define install
+define setup
 	@set -a
 	@$(call source $(ENV_FILE))
 	@echo === setup backend/.env file ===

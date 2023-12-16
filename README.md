@@ -75,6 +75,11 @@ make uninstall (remove project docker images, volumes)
 
 make help to see all of them
 
+if parameters has space use ""
+
+make artisan "make:test UserTest --unit"
+
+
 
 # Troubleshooting
 
