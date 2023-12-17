@@ -12,6 +12,8 @@ services:
       - traefik.docker.network=proxy
       - traefik.http.routers.backend.rule=Host(`be.localhost`)
       - traefik.http.routers.backend.tls=${DOCKER_STACK_SSL}
+    depends_on:
+      - php  
     volumes:
       - ${PROJECT_PATH}/backend:/var/www/html:delegated
     networks:
@@ -89,6 +91,8 @@ services:
       - traefik.docker.network=proxy
       - traefik.http.routers.redis-commander.rule=Host(`redis-commander.localhost`)
       - traefik.http.routers.redis-commander.tls=${DOCKER_STACK_SSL}
+    depends_on:
+      - redis
     restart: always
     environment:
       - REDIS_HOSTS=${PROJECT_NAME}-${CONFIG}-redis
