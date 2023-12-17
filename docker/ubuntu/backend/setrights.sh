@@ -3,6 +3,7 @@ GROUP=www-data
 RDIR=777
 RFILE=666
 STORAGE=/var/www/html/storage
+BOOTSTRAP=/var/www/html/bootstrap/cache
 function set_rights()
 {
     echo $1
@@ -15,4 +16,5 @@ function set_rights()
 }
 
 set_rights "${STORAGE}" "${RDIR}" "${RFILE}"
+set_rights "${BOOTSTRAP}" "${RDIR}" "${RFILE}"
 
