@@ -1,4 +1,4 @@
 curl -L 'https://login.auth0.com/api/v2/client-grants' \
 -H 'Content-Type: application/json' \
 -H 'Accept: application/json' \
--d '{"client_id":"TjXQnuh3sKvuH1v6IGaT6gJQaeyAlvhl","audience":"https://github.com/auth0/laravel-auth0","scope":['create:client_grants']}'
+-d '{"client_id":"qJw7sJq1xClfBpQJc9oSPNcE520wq230","audience":"https://github.com/auth0/laravel-auth0","scope":['create:client_grants']}'

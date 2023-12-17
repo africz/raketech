@@ -1,0 +1,9 @@
+./auth0 apis create \
+  --name "Flags API" \
+  --identifier "https://github.com/auth0/laravel-auth0" \
+  --offline-access \
+  --no-input \
+  --json > .auth0.api.json
+
+# Result:
+# === dev-pna8qz71k28j5dn3.eu.auth0.com api created

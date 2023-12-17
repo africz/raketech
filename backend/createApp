@@ -1,0 +1,18 @@
+./auth0 apps create \
+  --name "Flags" \
+  --type "regular" \
+  --auth-method "post" \
+  --callbacks "http://be.localhost/callback" \
+  --logout-urls "http://be.localhost" \
+  --reveal-secrets \
+  --no-input \
+  --json > .auth0.app.json
+
+# Result:
+
+# === dev-pna8qz71k28j5dn3.eu.auth0.com application created
+
+
+#  ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
+#  ▸    Hint: Emulate this app's login flow by running `auth0 test login heEUg4L5QoMpSdTz4WpcBSp2QKj0Rb1p`
+#  ▸    Hint: Consider running `auth0 quickstarts download heEUg4L5QoMpSdTz4WpcBSp2QKj0Rb1p`
