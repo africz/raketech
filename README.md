@@ -24,7 +24,7 @@ PROJECT_PATH=/projects/raketech
 # Install application 
 ```cd ../docker```
 
-```make install```
+```make setup```
 
 # Application urls
 
@@ -119,7 +119,7 @@ make artisan "make:test UserTest --unit"
 
 !!! Please read first and execute # Install application section at top of the page !!!
 
-If make install fail, simple try again with make install
+If make setup fail, simple try again with make setup
 sometimes compiling or installing get stuck
 if reinstall not helps you need to execute install steps
 manually and fix the step if needs.

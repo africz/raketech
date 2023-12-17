@@ -7,6 +7,8 @@ use Illuminate\Http\JsonResponse;
 use App\ResponseTrait;
 use Illuminate\Http\Request;
 use Psr\Log\LoggerInterface;
+use Illuminate\Support\Facades\Redirect;
+
 
 
 class AuthController extends Controller
@@ -17,8 +19,8 @@ class AuthController extends Controller
     {
         try {
             $content = $request->all();
-            $log->info('app.requests', ['request' => $content, 'method' => $request->method()]);
-            return $this->successResponse($content);
+            $log->info('auth0.callback', ['request' => $content, 'method' => $request->method()]);
+            return $this->errorResponse('error',$content);
         } catch (\Exception $e) {
             return $this->errorResponse($e->getMessage());
         }

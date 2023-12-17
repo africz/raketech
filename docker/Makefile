@@ -73,7 +73,7 @@ log/nginx:
 log/mysql:
 	$(call container_log,mysql)
 
-install:
+setup:
 	$(call setup)
 mount/backend:
 	$(call mount_container,backend)
