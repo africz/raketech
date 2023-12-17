@@ -3,10 +3,13 @@
 use Auth0\Laravel\Facade\Auth0;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\CountriesController;
+use App\Http\Controllers\API\AuthController;
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/api/countries/list', [CountriesController::class, 'list']);
 });
+
+  Route::get('/callback', [AuthController::class, 'callback']);
 
 Route::get('/private', function () {
   return response()->json([
@@ -54,3 +57,5 @@ Route::get('/me', function () {
     'email' => $email,
   ]);
 })->middleware('auth');
+
+
