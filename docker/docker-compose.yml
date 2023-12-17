@@ -46,6 +46,7 @@ services:
     container_name: ${PROJECT_NAME}-${CONFIG}-php
     profiles:
     - backend
+    - install
     - all
     image: ${PROJECT_NAME}-${CONFIG}-php:latest
     build: ${CONFIG}/php

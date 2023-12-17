@@ -10,7 +10,7 @@ use App\ResponseTrait;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
-use Config;
+use Illuminate\Support\Facades\Config;
 use App\Cache\RedisCache;
 
 

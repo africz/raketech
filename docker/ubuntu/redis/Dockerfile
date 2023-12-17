@@ -1,5 +1,5 @@
 ARG  platform arm64v8
-FROM --platform=$platform bitnami/redis:latest
+FROM ${platform}/redis
 ENV PROJECT_NAME ""
 ENV VERSION 0.0.1
 LABEL version=${VERSION}
