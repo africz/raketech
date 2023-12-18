@@ -164,5 +164,3 @@ like make build/backend
 
 ```make uninstall```
 
-uninstall will remove related volumes, images
-it will not remove network
