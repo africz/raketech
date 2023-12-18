@@ -237,6 +237,8 @@ define setup
 	@$(call source $(ENV_FILE))
 	@echo === setup backend/.env file ===
 	cp ../backend/env.example ../backend/.env
+	cp ../backend/auth0.app.json.example ../backend/.auth0.app.json
+    cp ../backend/auth0.api.json.example ../backend/.auth0.api.json
 	@echo === setup frontend/.env file ===
 	cp ../frontend/env.example ../frontend/.env
 	@echo === generate ssl cert ===

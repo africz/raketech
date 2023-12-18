@@ -132,6 +132,8 @@ These are the manual steps:
 ```cd ../../backend```
 
 ```cp env.example .env```
+```cp auth0.app.json.example .auth0.app.json```
+```cp auth0.api.json.example .auth0.api.json```
 
 ```cd ../../frontend```
 
