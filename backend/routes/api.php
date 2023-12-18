@@ -11,7 +11,7 @@ use App\Http\Controllers\API\AuthController;
     Route::get('/api/countries/list', [CountriesController::class, 'list']);
 //});
 
-Route::get('/callback', [AuthController::class, 'callback']);
+//Route::get('/callback', [AuthController::class, 'callback']);
 
 Route::get('/private', function () {
   return response()->json([
