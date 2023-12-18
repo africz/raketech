@@ -1,0 +1,28 @@
+fricz@africzhp:~/ra/backend$ ./auth0 apps create \
+  --name "FlagsMM" \
+  --type "regular" \
+  --auth-method "post" \
+  --callbacks "http://be.localhost/callback" \
+  --logout-urls "http://be.localhost" \
+  --reveal-secrets \
+  --no-input \
+  --json > .auth0.app.json
+
+=== attilafricz.eu.auth0.com application created
+
+
+ ▸    Quickstarts: https://auth0.com/docs/quickstart/webapp
+ ▸    Hint: Emulate this app's login flow by running `auth0 test login pd6aADAgxykfN4iAIGNfkRHzJ8vns3eF`
+ ▸    Hint: Consider running `auth0 quickstarts download pd6aADAgxykfN4iAIGNfkRHzJ8vns3eF`
+africz@africzhp:~/ra/backend$ ./auth0 apis create \
+  --name "FlagsMM API" \
+  --identifier "https://github.com/auth0/laravel-auth0" \
+  --offline-access \
+  --no-input \
+  --json > .auth0.api.json
+
+=== attilafricz.eu.auth0.com api created
+
+africz@africzhp:~/ra/backend$ 
+
+

@@ -29,6 +29,7 @@
         "laravel/sanctum": "^3",
         "laravel/tinker": "^2",
         "php-http/mock-client": "^1.6",
+        "psr-mock/http-client-implementation": "^1.0",
         "psr-mock/http-factory-implementation": "^1.0"
     },
     "require-dev": {

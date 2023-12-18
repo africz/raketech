@@ -1,6 +1,6 @@
 {
-    "id": "65802bb2d0c331f0001b4ad2",
-    "name": "Flags API",
+    "id": "65803de9d0c331f0001bcf0f",
+    "name": "FlagsMM API",
     "identifier": "https://github.com/auth0/laravel-auth0",
     "signing_alg": "RS256",
     "allow_offline_access": true,

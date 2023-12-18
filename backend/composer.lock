@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bca6d4528124c5b6f2b7fceb4f10b4d3",
+    "content-hash": "149791c7b1ecf821920fa29d167989b3",
     "packages": [
         {
             "name": "auth0/auth0-php",
@@ -3802,6 +3802,85 @@
                 "source": "https://github.com/psr-discovery/log-implementations/tree/1.0.0"
             },
             "time": "2023-03-27T06:14:11+00:00"
+        },
+        {
+            "name": "psr-mock/http-client-implementation",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/psr-mock/http-client-implementation.git",
+                "reference": "9fc75ccd396f009b8dee289886071eee94c231b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/psr-mock/http-client-implementation/zipball/9fc75ccd396f009b8dee289886071eee94c231b5",
+                "reference": "9fc75ccd396f009b8dee289886071eee94c231b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^8.0",
+                "psr/http-client": "^1.0",
+                "psr/http-message": "^1.0"
+            },
+            "provide": {
+                "psr/http-client-implementation": "^1.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.14",
+                "infection/infection": "^0.26",
+                "mockery/mockery": "^1.5",
+                "pestphp/pest": "^2.0",
+                "phpstan/phpstan": "^1.10",
+                "phpstan/phpstan-strict-rules": "^1.5",
+                "rector/rector": "^0.15",
+                "vimeo/psalm": "^5.8",
+                "wikimedia/composer-merge-plugin": "^2.0"
+            },
+            "type": "library",
+            "extra": {
+                "merge-plugin": {
+                    "ignore-duplicates": false,
+                    "include": [
+                        "composer.local.json"
+                    ],
+                    "merge-dev": true,
+                    "merge-extra": false,
+                    "merge-extra-deep": false,
+                    "merge-scripts": false,
+                    "recurse": true,
+                    "replace": true
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "PsrMock\\Psr18\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Evan Sims",
+                    "email": "hello@evansims.com",
+                    "homepage": "https://evansims.com/"
+                }
+            ],
+            "description": "Lightweight PSR-18 HTTP Client implementation provider tailored to simplify mocked testing.",
+            "homepage": "https://github.com/psr-mock/http-client-implementation",
+            "keywords": [
+                "http-client-implementation",
+                "mocking",
+                "psr",
+                "psr-18",
+                "testing"
+            ],
+            "support": {
+                "issues": "https://github.com/psr-mock/http-client-implementation/issues",
+                "source": "https://github.com/psr-mock/http-client-implementation/tree/1.0.0"
+            },
+            "time": "2023-03-27T18:04:14+00:00"
         },
         {
             "name": "psr-mock/http-factory-implementation",
