@@ -285,6 +285,13 @@ define uninstall
 	@echo === delete project volumes ===
 	@sleep $(SLEEP)
 	cd ./scripts && ./delvolumes $(PROJECT_NAME)
+	@echo === delete traefik network ===
+	@sleep $(SLEEP)
+	cd ./scripts && ./delnetwork proxy
+	@echo === delete traefik images ===
+	@sleep $(SLEEP)
+	cd ./scripts && ./deltraefik traefik
+
 endef
 
 
