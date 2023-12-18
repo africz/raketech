@@ -1,8 +1,8 @@
 {
-    "name": "Flags",
-    "description": "",
-    "client_id": "TjXQnuh3sKvuH1v6IGaT6gJQaeyAlvhl",
-    "client_secret": "iT5vjtS6erYNd4Y24BgQqB9F9zzNb7X2QbRxUhlrDkemMB6EtXDb67uGymAXCjDQ",
+    "name": "Flags Backend",
+    "description": "Laravel Backend for Flags",
+    "client_id": "BdFpVukol2y8KB15B9CiNjvBM6xbwsVu",
+    "client_secret": "W2SqFjwdOWfmJkEjEjQW08J1lqaqjGHkJ8MNWIS_L26_9PhQxEyjSSZU8L2uk6Wb",
     "app_type": "regular_web",
     "is_first_party": true,
     "is_token_endpoint_ip_header_trusted": false,
